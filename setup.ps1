@@ -55,12 +55,13 @@ $PsAliasBlock = @"
 
 # Custom Image Tool Alias
 function Invoke-Img2Svg {
-    param(`$InputPath, `$OutputPath)
-    img2svg.exe `$InputPath -exampleflag `$OutputPath
+    # $args automatically forwards everything you type after the alias
+    img2svg.exe $args
 }
 if (!(Get-Alias i2s -ErrorAction SilentlyContinue)) {
     Set-Alias i2s Invoke-Img2Svg
 }
+
 "@
 
 $ProfileContent = Get-Content $PROFILE -Raw -ErrorAction SilentlyContinue
@@ -79,9 +80,10 @@ $MacroFile = "$MacroFolder\macros.txt"
 if (!(Test-Path $MacroFolder)) { New-Item -ItemType Directory -Force -Path $MacroFolder | Out-Null }
 if (!(Test-Path $MacroFile)) { New-Item -ItemType File -Force -Path $MacroFile | Out-Null }
 
-$CmdAliasLine = "i2s=img2svg.exe `$* -exampleflag"
+# We just map the wildcard token directly
+$CmdAliasLine = "i2s=img2svg.exe $*"
 $MacroContent = Get-Content $MacroFile -ErrorAction SilentlyContinue
-if ($MacroContent -notcontains "i2s=img2svg.exe $* -exampleflag") {
+if ($MacroContent -notcontains "i2s=img2svg.exe $*") {
     Add-Content -Path $MacroFile -Value $CmdAliasLine
 }
 

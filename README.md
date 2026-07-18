@@ -10,6 +10,7 @@ img2svg is a simple CLI (Command Line Interface) tool built for Windows and Linu
 img2svg is made for one task, to convert anyting to an svg file format.
 
 |Usecases|
+|--------|
 img2svg [-h] [-o OUTPUT] [--colormode {color,binary}]
                [--hierarchical {stacked,cutout}]
                [--mode {spline,polygon,none}]
